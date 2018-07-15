@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Desafio</title>
+        <% for (var chunk of webpack.chunks) {
+            for (var file of chunk.files) {
+              if (file.match(/\.(js|css)$/)) { %>
+                <link rel="<%= chunk.initial?'preload':'prefetch' %>"
+                    href="<%= htmlWebpackPlugin.files.publicPath + file %>"
+                    as="<%= file.match(/\.css$/)?'style':'script' %>">
+            <% }
+            }
+        } %>
+        <link href="/static/css/toast.css" madia="screen" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
+    </head>
+    <body>
+        <div id="app"><span>Carregando...</span></div>
+        <div id="snackbar"></div>
+        <%= htmlWebpackPlugin.options.serviceWorkerLoader %>
+    </body>
+</html>
